@@ -2,7 +2,7 @@ package database
 
 import (
 	"github.com/AleRosmo/engine/models/db"
-	"github.com/AleRosmo/engine/models/events"
+	"github.com/AleRosmo/engine/models/models"
 )
 
 // TODO: Evaluate strings arguments used
@@ -11,15 +11,15 @@ import (
 // TODO: Also need to decide the returns of these functions
 
 type DatabaseOperations interface {
-	SaveMessage(*events.Message) (*db.Message, error)
+	SaveMessage(*models.Message) (*db.Message, error)
 	GetMessage(uint) (*db.Message, error)
 	GetUsersByChatId(uint) ([]*db.User, error)
 	GetUserByID(uint) (*db.User, error)
 	GetUserByUsername(username string) (user *db.User, err error)
 	NewUser(*db.User) (*db.User, error)
-	NewChat(*events.Chat) (*db.Chat, error)
-	NewChatType(*events.ChatType) (*db.ChatType, error)
-	NewUserWithPassword(*events.UserCreationEvent) (*db.User, error)
+	NewChat(*models.Chat) (*db.Chat, error)
+	NewChatType(*models.ChatType) (*db.ChatType, error)
+	NewUserWithPassword(*models.UserCreationEvent) (*db.User, error)
 	IsServerInitialized() (bool, error)
-	SaveServerSettings(*events.ServerSettings) error
+	SaveServerSettings(*models.ServerSettings) error
 }

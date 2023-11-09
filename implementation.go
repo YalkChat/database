@@ -2,7 +2,7 @@ package database
 
 import (
 	"github.com/AleRosmo/engine/models/db"
-	"github.com/AleRosmo/engine/models/events"
+	"github.com/AleRosmo/engine/models/models"
 	"gorm.io/gorm"
 )
 
@@ -16,7 +16,7 @@ func NewDatabase(conn *gorm.DB) *DatabaseImpl {
 	}
 }
 
-func (dbi *DatabaseImpl) SaveMessage(newMessage *events.Message) (*db.Message, error) {
+func (dbi *DatabaseImpl) SaveMessage(newMessage *models.Message) (*db.Message, error) {
 	dbMessage := &db.Message{
 		ChatID:  newMessage.ChatID,
 		UserID:  newMessage.UserID,
@@ -53,7 +53,7 @@ func (dbi *DatabaseImpl) GetClients(chatID uint) ([]uint, error) {
 }
 
 // TODO: Decide what this function should reeturn
-func (dbi *DatabaseImpl) NewUserWithPassword(newUser *events.UserCreationEvent) (*db.User, error) {
+func (dbi *DatabaseImpl) NewUserWithPassword(newUser *models.UserCreationEvent) (*db.User, error) {
 	dbNewUser := &db.User{Email: newUser.Email, Password: newUser.Password}
 	if err := dbi.conn.Create(newUser).Error; err != nil {
 		return nil, err
@@ -85,7 +85,7 @@ func (dbi *DatabaseImpl) NewUser(newUser *db.User) (*db.User, error) {
 }
 
 // NewChat creates a new chat in the database
-func (dbi *DatabaseImpl) NewChat(newChat *events.Chat) (*db.Chat, error) {
+func (dbi *DatabaseImpl) NewChat(newChat *models.Chat) (*db.Chat, error) {
 	dbNewChat := &db.Chat{
 		Name: newChat.Name,
 		// Add other fields from events.Chat to db.Chat here
@@ -97,7 +97,7 @@ func (dbi *DatabaseImpl) NewChat(newChat *events.Chat) (*db.Chat, error) {
 }
 
 // NewChatType creates a new chat type in the database
-func (dbi *DatabaseImpl) NewChatType(newChatType *events.ChatType) (*db.ChatType, error) {
+func (dbi *DatabaseImpl) NewChatType(newChatType *models.ChatType) (*db.ChatType, error) {
 	dbNewChatType := &db.ChatType{
 		Name: newChatType.Name,
 		// Add other fields from events.ChatType to db.ChatType here
@@ -115,7 +115,7 @@ func (dbi *DatabaseImpl) IsServerInitialized() (bool, error) {
 }
 
 // SaveServerSettings saves server settings to the database
-func (dbi *DatabaseImpl) SaveServerSettings(newSettings *events.ServerSettings) error {
+func (dbi *DatabaseImpl) SaveServerSettings(newSettings *models.ServerSettings) error {
 	dbSettings := &db.ServerSettings{
 		// Map fields from events.ServerSettings to db.ServerSettings here
 	}

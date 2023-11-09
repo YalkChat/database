@@ -9,7 +9,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func InitializeDb(config *DbConfig) (*gorm.DB, error) {
+func InitializeDb(config *Config) (*gorm.DB, error) {
 
 	db, err := OpenDbConnection(config)
 	if err != nil {
@@ -24,7 +24,7 @@ func InitializeDb(config *DbConfig) (*gorm.DB, error) {
 }
 
 // XXX: This needs to be removed, ChatGateway should not interact directly with DB
-func OpenDbConnection(config *DbConfig) (*gorm.DB, error) {
+func OpenDbConnection(config *Config) (*gorm.DB, error) {
 	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
 		config.DbHost, config.DbPort, config.DbUser, config.DbPassword, config.DbName, config.DbSslMode)
 

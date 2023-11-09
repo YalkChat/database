@@ -6,7 +6,7 @@ import (
 	"reflect"
 )
 
-type DbConfig struct {
+type Config struct {
 	DbHost     string
 	DbPort     string
 	DbUser     string
@@ -16,9 +16,9 @@ type DbConfig struct {
 }
 
 // TODO: There is repetition in this logic, needs to be addressed
-func LoadConfig() (*DbConfig, error) {
+func LoadConfig() (*Config, error) {
 
-	config := DbConfig{
+	config := Config{
 		DbHost:     os.Getenv("DB_HOST"),
 		DbPort:     os.Getenv("DB_PORT"),
 		DbUser:     os.Getenv("DB_USER"),
